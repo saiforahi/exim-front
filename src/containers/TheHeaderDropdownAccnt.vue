@@ -60,17 +60,36 @@
       <CIcon name="cil-shield-alt" /> Lock Account
     </CDropdownItem>
     <CDropdownItem>
-      <CIcon name="cil-lock-locked" /> Logout
+      <CIcon name="cil-lock-locked" /> <a v-on:click="handle_logout"> Logout </a>
     </CDropdownItem>
   </CDropdown>
 </template>
 
 <script>
+import swal from 'sweetalert'
+import { API, API_URL, TOKEN } from '../Config'
 export default {
   name: 'TheHeaderDropdownAccnt',
   data () {
     return { 
       itemsCount: 42
+    }
+  },
+  methods:{
+    handle_logout:function(){
+      API.post(API_URL+'/logout').then(response=>{
+        console.log(response.data)
+        if(response.data.status===true){
+          localStorage.removeItem(TOKEN);
+          localStorage.removeItem('email');
+          localStorage.removeItem('phone');
+          localStorage.removeItem('name');
+          this.$router.push('/login');
+        }
+        else if(response.data.status===false){
+          swal('Failed','Error in logging out!','error');
+        }
+      })
     }
   }
 }

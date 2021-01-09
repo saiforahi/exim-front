@@ -12,6 +12,7 @@ Vue.config.performance = true
 Vue.use(CoreuiVue)
 Vue.prototype.$log = console.log.bind(console)
 Vue.use(VueAxios, axios)
+Vue.use(require('vue-moment'));
 
 new Vue({
   el: '#app',

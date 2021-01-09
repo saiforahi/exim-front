@@ -39,25 +39,44 @@
   </div>
 </template>
 <script>
-import {PUBLIC_API,API_URL} from '../../Config'
+import {PUBLIC_API,API_URL, TOKEN,API} from '../../Config'
+import swal from 'sweetalert'
 export default {
     name:'Login',
     data(){
       return{
-        username:'',
-        password:''
+        username:'saiforahi@gmail.com',
+        password:'12345678'
       }
     },
     methods:{
       handle_login_submit:function(){
-        PUBLIC_API.post(API_URL+'/login',JSON.stringify({username:this.username,password:this.password})).then(response=>{
-          if(response.data.status===true){
-            this.$router.push('/dashboard');
+        PUBLIC_API.post(API_URL+'/login',JSON.stringify({username:this.username,password:this.password})).then(public_response=>{
+          console.log(public_response.data);
+          if(public_response.data.status===true){
+            localStorage.setItem(TOKEN,public_response.data.api_token)
+            API.get(API_URL+'/user/details').then(auth_response=>{
+              console.log(auth_response.data);
+              this.setSession(auth_response.data);
+              this.$router.push('/dashboard');
+            })
           }
-          else if(response.data.status===false){
-
+          else if(public_response.data.status===false){
+            swal('Failed',response.data.message,'error')
           }
+        }).catch(error=>{
+          console.log(error)
+          swal('Error',error.message,'error');
         })
+      },
+      setSession:function(data) {
+        //const payload = <JWTPayload>jwt_decode(token);
+        //console.log(authResult);
+        //const expiresAt = moment.unix(payload.exp);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('name', data.name);
+        localStorage.setItem('phone', data.phone);
+        //localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
       }
     }
 }
