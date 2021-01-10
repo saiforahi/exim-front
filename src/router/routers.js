@@ -5,6 +5,8 @@ Vue.use(Router)
 const TheContainer = ()=> import('../containers/TheContainer')
 const Login = ()=>import('../components/auth/Login')
 const Dashboard = () => import('../components/dashboard/Dashboard')
+const Roles = () =>import('../components/roles/Roles')
+const Role_Create=()=>import('../components/roles/Create')
 export default new Router({
     mode: 'history', // https://router.vuejs.org/api/#mode
     linkActiveClass: 'active',
@@ -25,6 +27,18 @@ function configRoutes (){
                     name: 'Dashboard',
                     component: Dashboard,
                     beforeEnter : auth_guard,
+                },
+                {
+                    path: '/role/all',
+                    name: 'Roles Management',
+                    component: Roles,
+                    beforeEnter : auth_guard
+                },
+                {
+                    path: '/role/create',
+                    name: 'Role_Create',
+                    component: Role_Create,
+                    beforeEnter : auth_guard
                 }
             ]
         },
