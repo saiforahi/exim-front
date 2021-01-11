@@ -457,6 +457,7 @@
 import MainChartExample from '../../views/charts/MainChartExample'
 import WidgetsDropdown from '../../views/widgets/WidgetsDropdown'
 import WidgetsBrand from '../../views/widgets/WidgetsBrand'
+import { TOKEN } from '../../Config'
 
 export default {
   name: 'Dashboard',
@@ -526,6 +527,11 @@ export default {
         { key: 'payment', label: 'Payment method', _classes: 'text-center' },
         { key: 'activity' },
       ]
+    }
+  },
+  mounted(){
+    if(!localStorage.getItem(TOKEN)){
+      this.$router.push('/login')
     }
   },
   methods: {
