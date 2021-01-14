@@ -2,7 +2,7 @@
   <CContainer>
     <CRow>
       <CCol>
-        <router-link to="/role/create"><CButton shape="square" color="primary">Add</CButton></router-link>
+        <router-link to="/user/create"><CButton shape="square" color="primary">Add</CButton></router-link>
       </CCol>
     </CRow>
     <hr/>
@@ -10,11 +10,11 @@
       <CCol>
         <CCard>
           <CCardHeader>
-            <h3>Roles</h3>
+            <h3>Users</h3>
           </CCardHeader>
           <CCardBody>
             <CDataTable
-                :items="roles"
+                :items="users"
                 :fields="fields"
                 table-filter
                 column-filter
@@ -36,21 +36,24 @@
 import {API,API_URL} from '../../Config'
 const fields = [
   { key: 'name', label: 'Name' },
-  { key: 'guard_name', label: 'Guard' },
+  { key: 'username', label: 'Username'},
+  { key: 'email', label: 'Email' },
+  { key: 'phone', label: 'Phone' },
   'Action'
   
 ]
 export default {
-  name:"Roles",
+  name:"Users",
   data(){
     return{
       fields,
-      roles: [],
+      users: [],
     }
   },
   mounted() {
-    API.get(API_URL+'/role/all').then(response=>{
-      this.roles=response.data.roles;
+    API.get(API_URL+'/user/all').then(response=>{
+      this.users = response.data.users;
+      console.log(this.users)
     });
   }
 }
