@@ -15,15 +15,28 @@
           <CCardBody>
             <CDataTable
                 :items="roles"
-              :fields="fields"
+                :fields="fields"
                 table-filter
                 column-filter
                 pagination
-                :itemsPerPage="1"
+                :itemsPerPage="10"
                 footer
                 striped hover itemsPerPageSelect
                 clickableRows
-            />
+            >
+            <template #edit="{item}">
+              <td class="py-2">
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  square
+                  size="sm"
+                >
+                  Edit
+                </CButton>
+              </td>
+            </template>
+            </CDataTable>
           </CCardBody>
         </CCard>
       </CCol>
@@ -35,7 +48,8 @@ import {API,API_URL} from '../../Config'
 const fields = [
   { key: 'name', label: 'Name' },
   { key: 'guard_name', label: 'Guard' },
-  'status'
+  'Action'
+  
 ]
 export default {
   name:"Roles",
@@ -48,7 +62,7 @@ export default {
   mounted() {
     API.get(API_URL+'/role/all').then(response=>{
       this.roles=response.data.roles;
-    })
+    });
   }
 }
 </script>
