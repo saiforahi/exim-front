@@ -23,6 +23,10 @@
     </CSidebarBrand>
     <CSidebarNav>
       <CSidebarNavItem icon="cil-speedometer" name="Dashboard"></CSidebarNavItem>
+      <CSidebarNavDropdown icon="cil-user" name="Role Management">
+        <CSidebarNavItem name="Roles" to="/role/all"></CSidebarNavItem>
+        <CSidebarNavItem name="Create New Role" to="/role/create"></CSidebarNavItem>
+      </CSidebarNavDropdown>
       <CSidebarNavDropdown name="Accounts" icon="cil-calculator">
         <CSidebarNavDropdown name="Master">
           <CSidebarNavItem name="Category"></CSidebarNavItem>

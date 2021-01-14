@@ -457,7 +457,7 @@
 import MainChartExample from '../../views/charts/MainChartExample'
 import WidgetsDropdown from '../../views/widgets/WidgetsDropdown'
 import WidgetsBrand from '../../views/widgets/WidgetsBrand'
-
+import { TOKEN } from '../../Config'
 export default {
   name: 'Dashboard',
   components: {

@@ -75,6 +75,7 @@ export default {
       itemsCount: 42
     }
   },
+
   methods:{
     handle_logout:function(){
       API.post(API_URL+'/logout').then(response=>{
