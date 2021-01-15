@@ -21,10 +21,14 @@
                 pagination
                 :itemsPerPage="10"
                 footer
-                striped hover itemsPerPageSelect
+                striped hover itemsPerPageSelect sorter=""
                 clickableRows
             >
-          
+            <template #action>
+              <td class="py-2">
+                <CButton color="primary" variant="outline" square size="sm">Edit</CButton> <CButton color="danger" variant="outline" square size="sm">Delete</CButton>
+              </td>
+            </template>
             </CDataTable>
           </CCardBody>
         </CCard>
@@ -37,8 +41,7 @@ import {API,API_URL} from '../../Config'
 const fields = [
   { key: 'name', label: 'Name' },
   { key: 'guard_name', label: 'Guard' },
-  'Action'
-  
+  { key: 'action', label: 'Action',_style:'max-width:10px;', sorter: false, filter: false}
 ]
 export default {
   name:"Roles",
