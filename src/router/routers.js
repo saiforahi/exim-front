@@ -43,6 +43,11 @@ function configRoutes (){
                     beforeEnter : auth_guard
                 },
                 {
+                    path:'/permission/create/',
+                    name:'Permission_Create',
+
+                },
+                {
                     path: '/user/all',
                     name: 'Users Management',
                     component: Users,

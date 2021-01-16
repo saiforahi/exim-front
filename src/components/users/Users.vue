@@ -24,6 +24,11 @@
                 striped hover itemsPerPageSelect
                 clickableRows
             >
+            <template #action="{item}">
+              <td class="py-2">
+                <CButton color="primary" v-on:click="delete_user(item.id)" variant="outline" square size="sm">Edit</CButton> <CButton color="danger" variant="outline" square size="sm">Delete</CButton>
+              </td>
+            </template>
           
             </CDataTable>
           </CCardBody>
@@ -34,12 +39,13 @@
 </template>
 <script>
 import {API,API_URL} from '../../Config'
+import swal from 'sweetalert'
 const fields = [
   { key: 'name', label: 'Name' },
   { key: 'username', label: 'Username'},
   { key: 'email', label: 'Email' },
   { key: 'phone', label: 'Phone' },
-  'Action'
+  { key: 'action', label: 'Action', sorter: false, filter: false}
   
 ]
 export default {
@@ -51,10 +57,22 @@ export default {
     }
   },
   mounted() {
-    API.get(API_URL+'/user/all').then(response=>{
+    API.get(API_URL+'/user/all_users').then(response=>{
       this.users = response.data.users;
-      console.log(this.users)
+      
     });
-  }
+  },
+  
+    delete_user:function(user_id){
+      API.delete(API_URL+'/user/delete'+user_id).then(response=>{
+        if(response.data.status === true){
+          swal('Deleted !',response.data.message,'success')
+        }
+        else if(response.data.status===false){
+          swal('Failed!',response.data.message,'error')
+        }
+      })
+    }
+  
 }
 </script>

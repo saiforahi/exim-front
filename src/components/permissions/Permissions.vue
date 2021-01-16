@@ -14,7 +14,7 @@
           </CCardHeader>
           <CCardBody>
             <CDataTable
-                :items="roles"
+                :items="permissions"
                 :fields="fields"
                 table-filter
                 column-filter
@@ -49,7 +49,7 @@ export default {
   data(){
     return{
       fields,
-      roles: [],
+      permissions: [],
     }
   },
   mounted() {
@@ -74,5 +74,5 @@ export default {
     }
   }
  
- }
+}
 </script>

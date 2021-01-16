@@ -13,7 +13,9 @@
             <CForm>
               <CFormGroup>
                 <label>Name</label>
-                <CInput type="text"/>
+                <CInput type="text"
+                v-model="name"
+                />
               </CFormGroup>
               <CInput
                 type="text"
@@ -22,7 +24,7 @@
                 label="Username"
                 horizontal
                 placeholder="Enter Username ..."
-                v-model="name"
+                v-model="username"
               />
                <CInput
                 type="email"
@@ -31,7 +33,16 @@
                 label="Email"
                 horizontal
                 placeholder="Enter Email ..."
-                v-model="name"
+                v-model="email"
+              />
+              <CInput
+                type="text"
+                description="Please enter Phone no."
+                autocomplete="Phone"
+                label="Phone"
+                horizontal
+                placeholder="Enter Phone no ..."
+                v-model="phone"
               />
               <CInput
                 type="password"
@@ -40,7 +51,7 @@
                 label="Password"
                 horizontal
                 placeholder="Enter password ..."
-                v-model="name"
+                v-model="password"
               />
               <CInput
                 type="password"
@@ -49,22 +60,22 @@
                 label="Confirm Password"
                 horizontal
                 placeholder="Confirm password ..."
-                v-model="name"
+               
               />
-            <CSelect
+            <!-- <CSelect
                 label="Select Role"
                 size="sm"
                 horizontal
                 :options="options"
                 placeholder="Please select user role"
                 custom
-              />
+              /> -->
 
             
             </CForm>
           </CCardBody>
           <CCardFooter>
-            <CButton v-on:click="handle_role_creation" type="submit" size="sm" color="primary"><CIcon name="cil-check-circle"/> Submit</CButton>
+            <CButton v-on:click="handle_user_creation" type="submit" size="sm" color="primary"><CIcon name="cil-check-circle"/> Submit</CButton>
             &nbsp;<CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban"/> Reset</CButton>
           </CCardFooter>
         </CCard>
@@ -80,18 +91,32 @@
 import {API_URL,API} from '../../Config'
 import swal from 'sweetalert'
 export default {
-  name:'Role_Create',
+  name:'User_Create',
   data(){
     return{
-      name:''
+      name:'',
+      username:'',
+      email:'',
+      phone:'',
+      password:'',
+
+     
+
     }
   },
   methods:{
-    handle_role_creation:function(){
-      API.post(API_URL+'/role/create',JSON.stringify({name:this.name})).then(response=>{
+    handle_user_creation:function(){
+      let data=JSON.stringify({name:this.name,username:this.username,email:this.email,password:this.password,phone:this.phone})
+      console.log(data);
+      API.post(API_URL+'/user/store',data).then(response=>{
         if(response.data.status===true){
           this.name="";
-          this.$router.push('/role/all');
+          this.username="";
+          this.email="";
+          this.password="";
+          this.phone="";
+          this.password="";
+          this.$router.push('/user/all_users');
           swal('Created!',response.data.message,'success');
         }
         else if(response.data.status===false){
