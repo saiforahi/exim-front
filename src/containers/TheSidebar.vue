@@ -35,10 +35,10 @@
 
       <CSidebarNavDropdown name="Accounts" icon="cil-calculator">
         <CSidebarNavDropdown name="Master">
-          <CSidebarNavItem name="Category"></CSidebarNavItem>
-          <CSidebarNavItem name="Sub Category"></CSidebarNavItem>
-          <CSidebarNavItem name="Groups"></CSidebarNavItem>
-          <CSidebarNavItem name="Ledger"></CSidebarNavItem>
+          <CSidebarNavItem name="Category" to="/account/category/all"></CSidebarNavItem>
+          <CSidebarNavItem name="Sub Category" to="/account/sub_category/all"></CSidebarNavItem>
+          <CSidebarNavItem name="Groups" to="/account/group/all"></CSidebarNavItem>
+          <CSidebarNavItem name="Ledger" to="/account/ledger/all"></CSidebarNavItem>
           <CSidebarNavItem name="Cost-Categories"></CSidebarNavItem>
           <CSidebarNavItem name="Cost-Center"></CSidebarNavItem>
           <CSidebarNavItem name="Type"></CSidebarNavItem>

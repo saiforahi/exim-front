@@ -1,7 +1,9 @@
+import { path } from 'chromedriver'
 import Vue from 'vue'
 import Router from 'vue-router'
 import { TOKEN } from '../Config'
 Vue.use(Router)
+
 const TheContainer = ()=> import('../containers/TheContainer')
 const Login = ()=>import('../components/auth/Login')
 const Dashboard = () => import('../components/dashboard/Dashboard')
@@ -9,6 +11,15 @@ const Roles = () =>import('../components/roles/Roles')
 const Role_Create=()=>import('../components/roles/Create')
 const Users = () =>import('../components/users/Users')
 const User_Create = () =>import('../components/users/Create')
+const Categories = () =>import('../components/accounts/category/Categories')
+const Category_Create = () =>import('../components/accounts/category/Create')
+const SubCategories = () =>import('../components/accounts/sub_category/SubCategories')
+const SubCategory_Create = () =>import('../components/accounts/sub_category/Create')
+const Groups = () =>import('../components/accounts/groups/Groups')
+const Group_Create = () =>import('../components/accounts/groups/Create')
+const Legers = () =>import('../components/accounts/ledger/Ledger')
+const Leger_Create = () =>import('../components/accounts/ledger/Create')
+
 export default new Router({
     mode: 'history', // https://router.vuejs.org/api/#mode
     linkActiveClass: 'active',
@@ -58,8 +69,58 @@ function configRoutes (){
                     name: 'User_Create',
                     component: User_Create,
                     beforeEnter: auth_guard
+                },
+                {
+                    path: 'account/category/all',
+                    name: 'Categories Management',
+                    component: Categories,
+                    beforeEnter:auth_guard
+                },
+                {
+                    path: 'account/category/create',
+                    name: 'Category_Create',
+                    component: Category_Create,
+                    beforeEnter: auth_guard
+                },
+                {
+                    path: 'account/sub_category/all',
+                    name: 'SubCategory Management',
+                    component: SubCategories,
+                    beforeEnter: auth_guard
+                },
+                {
+                  path: 'account/sub_category/create',
+                  name: 'SubCategory_Create',
+                    component:SubCategory_Create,
+                    beforeEnter:auth_guard
+                },
+                {
+                    path: 'account/group/all',
+                    name: 'Group Management',
+                    component: Groups,
+                    beforeEnter: auth_guard
+                },
+                {
+                    path: 'account/group/create',
+                    name: 'Group_Create',
+                    component: Group_Create,
+                    beforeEnter:auth_guard
+                },
+                {
+                    path: 'account/ledger/all',
+                    name: 'Ledger Management',
+                    component: Legers,
+                    beforeEnter: auth_guard
+                },
+                {
+                    path: 'account/ledger/create',
+                    name: 'Ledger_Create',
+                    component: Leger_Create,
+                    beforeEnter: auth_guard
                 }
-            ]
+                  
+                
+            ] 
         },
         {
             path: '/login',
