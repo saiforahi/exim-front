@@ -72,12 +72,14 @@ export default {
   name: 'TheHeaderDropdownAccnt',
   data () {
     return { 
-      itemsCount: 42
+      itemsCount: 42,
+      
     }
   },
-
+  
   methods:{
     handle_logout:function(){
+      console.log('pressed')
       API.post(API_URL+'/logout').then(response=>{
         console.log(response.data)
         if(response.data.status===true){
@@ -85,11 +87,20 @@ export default {
           localStorage.removeItem('email');
           localStorage.removeItem('phone');
           localStorage.removeItem('name');
+          localStorage.removeItem('permissions')
           this.$router.push('/login');
         }
         else if(response.data.status===false){
           swal('Failed','Error in logging out!','error');
         }
+      })
+      .catch(error=>{
+        localStorage.removeItem(TOKEN);
+        localStorage.removeItem('email');
+        localStorage.removeItem('phone');
+        localStorage.removeItem('name');
+        localStorage.removeItem('permissions')
+        this.$router.push('/login');
       })
     }
   }

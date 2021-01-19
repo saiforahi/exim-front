@@ -46,3 +46,22 @@ export const DOWNLOADER = axios.create({
   timeout: 10000
 })
 
+export function can(permission){
+  let result=false;
+  Array.from(JSON.parse(localStorage.getItem('permissions'))).forEach(role=>{
+    if(role.name===permission){
+      result=true;
+    }
+  })
+  return result;
+}
+export function hasRole(role_name){
+  let result=false;
+  Array.from(JSON.parse(localStorage.getItem('roles'))).forEach(role=>{
+    if(role===role_name){
+      result=true;
+    }
+  })
+  return result;
+}
+

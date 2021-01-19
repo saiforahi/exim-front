@@ -23,16 +23,17 @@
     </CSidebarBrand>
     <CSidebarNav>
       <CSidebarNavItem icon="cil-speedometer" name="Dashboard"></CSidebarNavItem>
-      <CSidebarNavDropdown icon="cil-user" name="Role Management">
-        <CSidebarNavItem name="Roles" to="/role/all"></CSidebarNavItem>
-        
+      <CSidebarNavTitle>Super Admin Panel</CSidebarNavTitle>
+      <CSidebarNavDropdown v-if="readRoles===true" icon="cil-user" name="Role Management">
+        <CSidebarNavItem name="Roles" to="/role/all"></CSidebarNavItem> 
       </CSidebarNavDropdown>
-
         <CSidebarNavDropdown icon="cil-user" name="User Management">
         <CSidebarNavItem name="Users" to="/user/all"></CSidebarNavItem>
-        
       </CSidebarNavDropdown>
-
+      <CSidebarNavDropdown icon="cil-window" name="Company Management">
+        <CSidebarNavItem name="Companies" to="/company/all"></CSidebarNavItem>
+      </CSidebarNavDropdown>
+      <hr/>
       <CSidebarNavDropdown name="Accounts" icon="cil-calculator">
         <CSidebarNavDropdown name="Master">
           <CSidebarNavItem name="Category" to="/account/category/all"></CSidebarNavItem>
@@ -139,9 +140,18 @@
 
 <script>
 import nav from './_nav'
+import {can,hasRole} from '../Config'
 export default {
   name: 'TheSidebar',
   nav,
+  data(){
+    return{
+      readRoles:false,
+    }
+  },
+  mounted(){
+    this.readRoles=can('read roles')?can('read roles'):hasRole('super-admin');
+  },
   computed: {
     show () {
       return this.$store.state.sidebarShow 

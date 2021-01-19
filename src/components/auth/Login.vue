@@ -45,8 +45,8 @@ export default {
     name:'Login',
     data(){
       return{
-        username:'saiforahi@gmail.com',
-        password:'12345678'
+        username:'test@example.com',
+        password:'123456'
       }
     },
     methods:{
@@ -58,7 +58,14 @@ export default {
             API.get(API_URL+'/user/details').then(auth_response=>{
               console.log(auth_response.data);
               this.setSession(auth_response.data);
-              this.$router.push('/dashboard');
+              API.get(API_URL+'/user/permissions').then(permission_response=>{
+                localStorage.setItem('permissions',JSON.stringify(permission_response.data))
+                API.get(API_URL+'/user/roles').then(roles=>{
+                  console.log(JSON.stringify(roles.data));
+                  localStorage.setItem('roles',JSON.stringify(roles.data))
+                  this.$router.push('/dashboard');
+                })
+              })
             })
           }
           else if(public_response.data.status===false){

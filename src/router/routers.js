@@ -71,6 +71,24 @@ function configRoutes (){
                     beforeEnter: auth_guard
                 },
                 {
+                    path: '/company/all',
+                    name: 'Companies',
+                    component: ()=>import('../components/companies/Companies.vue'),
+                    beforeEnter: auth_guard
+                },
+                {
+                    path: '/company/create',
+                    name: 'Create Company',
+                    component: ()=>import('../components/companies/Create.vue'),
+                    beforeEnter: auth_guard
+                },
+                {
+                    path: '/company/edit/:id',
+                    name: 'Edit Company',
+                    component: ()=>import('../components/companies/Edit.vue'),
+                    beforeEnter: auth_guard
+                },
+                {
                     path: 'account/category/all',
                     name: 'Categories Management',
                     component: Categories,
@@ -118,8 +136,6 @@ function configRoutes (){
                     component: Leger_Create,
                     beforeEnter: auth_guard
                 }
-                  
-                
             ] 
         },
         {

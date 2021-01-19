@@ -1,8 +1,8 @@
 <template>
   <CContainer>
-    <CRow v-if="canCreateRole===true">
+    <CRow v-if="canCreateCompany===true">
       <CCol>
-        <router-link to="/role/create"><CButton shape="square" color="primary">Add</CButton></router-link>
+        <router-link to="/company/create"><CButton shape="square" color="primary">Add</CButton></router-link>
       </CCol>
     </CRow>
     <hr/>
@@ -10,11 +10,11 @@
       <CCol>
         <CCard>
           <CCardHeader>
-            <h3>Roles</h3>
+            <h3>Companies</h3>
           </CCardHeader>
           <CCardBody>
             <CDataTable
-                :items="roles"
+                :items="companies"
                 :fields="fields"
                 table-filter
                 column-filter
@@ -38,44 +38,38 @@
 </template>
 <script>
 import swal from 'sweetalert'
-import {API,API_URL} from '../../Config'
-import {can,hasRole} from '../../Config'
+import { API, API_URL, can, hasRole } from '../../Config'
 const fields = [
   { key: 'name', label: 'Name' },
-  { key: 'guard_name', label: 'Guard' },
+  { key: 'admin', label: 'Admin' },
   { key: 'action', label: 'Action', sorter: false, filter: false}
 ]
 export default {
-  name:"Roles",
-  data(){
-    return{
-      fields,
-      roles: [],
-      canCreateRole:false
-    }
-  },
-  mounted() {
-    this.load_roles();
-    this.canCreateRole=can('create roles')?can('create roles'):hasRole('super-admin');
-  },
-  methods:{
-    load_roles:function(){
-      API.get(API_URL+'/role/all').then(response=>{
-        this.roles=response.data.roles;
-      });
+    name: 'Companies',
+    data(){
+        return{
+            fields,
+            companies:[],
+            canCreateCompany:false
+        }
     },
-    delete_role:function(role_id){
-      API.delete(API_URL+'/role/delete/'+role_id).then(response=>{
-        if(response.data.status===true){
-          this.load_roles();
-          swal('Deleted!',response.data.message,'success')
+    mounted(){
+        this.canCreateCompany=can('create companies')?can('create companies'):hasRole('super-admin');
+        this.loadCompanies();
+    },
+    methods:{
+        loadCompanies:function(){
+            API.get(API_URL+'/company/all').then(response=>{
+                if(response.data.status===true){
+                    this.companies=response.data.companies
+                }
+                else if(response.data.status===false){
+                    swal('Error',response.data.message,'error')
+                }
+            }).catch(error=>{
+                console.log(error.message)
+            })
         }
-        else if(response.data.status===false){
-          swal('Failed!',response.data.message,'error')
-        }
-      })
     }
-  }
- 
- }
+}
 </script>
