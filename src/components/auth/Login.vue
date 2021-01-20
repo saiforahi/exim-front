@@ -22,7 +22,8 @@
                   </CInput>
                   <CRow>
                     <CCol col="6" class="text-left">
-                      <CButton v-on:click="handle_login_submit" color="primary" class="px-4">Login</CButton>
+                      <CButton v-if="!processing" v-on:click="handle_login_submit" color="primary" class="px-4">Login</CButton>
+                      <CSpinner v-if="processing" color="primary" grow/>
                     </CCol>
                     <CCol col="6" class="text-right">
                       <CButton color="link" class="px-0">Forgot password?</CButton>
@@ -46,11 +47,13 @@ export default {
     data(){
       return{
         username:'test@example.com',
-        password:'123456'
+        password:'123456',
+        processing:false
       }
     },
     methods:{
       handle_login_submit:function(){
+        this.processing=true;
         PUBLIC_API.post(API_URL+'/login',JSON.stringify({username:this.username,password:this.password})).then(public_response=>{
           console.log(public_response.data);
           if(public_response.data.status===true){
@@ -69,12 +72,15 @@ export default {
             })
           }
           else if(public_response.data.status===false){
+            this.processing=false;
             swal('Failed',response.data.message,'error')
           }
         }).catch(error=>{
           console.log(error)
+          this.processing=false;
           swal('Error',error.message,'error');
         })
+        
       },
       setSession:function(data) {
         //const payload = <JWTPayload>jwt_decode(token);
