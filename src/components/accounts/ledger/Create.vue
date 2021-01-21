@@ -1,7 +1,5 @@
 <template>
   <CContainer>
- 
-
      <CRow>
       
       <CCol md="12">
@@ -87,6 +85,89 @@
                 </CCol>
               </CRow>
 
+                <template v-for="(name, key) in checkboxNames">
+                  <CRow form class="form-group" :key="name">
+                    <CCol tag="label" sm="3" class="col-form-label">
+                      {{name}}
+                    </CCol>
+                    <CCol sm="9" :class="key % 2 === 1 ? 'form-inline' : ''">
+                      <CInputCheckbox
+                          v-for="(option, optionIndex) in options"
+                          :key="key + option"
+                          :label="option"
+                          :value="option"
+                          :custom="key > 1"
+                          :name="`Option 1${key}`"
+                          :checked="optionIndex === key"
+                          :inline="key % 2 === 1"
+                          v-on:click="is_bank(option)"
+                      />
+                    </CCol>
+                  </CRow>
+                </template>
+
+              <CRow>
+                <CCol md="6">
+                  <CInput
+                      type="text"
+                      description="Please enter Bank name."
+                      autocomplete="Bank Name"
+                      label="Bank Name"
+                      horizontal
+                      placeholder="Enter Bank Name..."
+                      v-model="name"
+                  />
+                </CCol>
+
+                <CCol md="6">
+                  <CInput
+                      type="text"
+                      description="Please enter branch name."
+                      autocomplete="Branch Name"
+                      label="Branch Name"
+                      horizontal
+                      placeholder=" Enter Branch Name..."
+                      v-model="name"
+                  />
+
+                </CCol>
+              </CRow>
+              <CRow>
+                <CCol md="5">
+                  <CInput
+                      type="text"
+                      description="Please enter branch email."
+                      autocomplete="Branch Email"
+                      label="Branch Email"
+                      horizontal
+                      placeholder="Enter Branch Email..."
+                      v-model="name"
+                  />
+                </CCol>
+
+                <CCol md="5">
+                  <CInput
+                      type="text"
+                      description="Please enter branch phone."
+                      autocomplete="Branch Phone"
+                      label="Branch Phone"
+                      horizontal
+                      placeholder=" Enter Branch Phone..."
+                      v-model="name"
+                  />
+
+                </CCol>
+                <CCOl md="2">
+                  <CInput
+                      type="checkbox"
+                      label="Add Checkbook"
+
+                  />
+                </CCOl>
+              </CRow>
+
+
+
             </CForm>
           </CCardBody>
           <CCardFooter>
@@ -114,7 +195,7 @@ export default {
       selected: [], // Must be an array reference!
       show: true,
       horizontal: { label:'col-3', input:'col-9' },
-      options: ['Active', 'Inactive'],
+      options: ['Is Bank', 'Is Fixed Asset','Is Supplier'],
       selectOptions: [
         'Option 1', 'Option 2',
         {
@@ -125,7 +206,7 @@ export default {
       selectedOption: 'some value',
 
       formCollapsed: true,
-
+      checkboxNames: ['Bank,Supplier,Fixed Asset'],
       radioNames: ['Status']
     }
   },
@@ -143,6 +224,11 @@ export default {
       }).catch(error=>{
         console.log(error.message);
       })
+    },
+    is_bank(option){
+      if (option == 'Is Bank'){
+alert('is bank')
+      }
     }
   }
 }
