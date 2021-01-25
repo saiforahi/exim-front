@@ -3,6 +3,13 @@
     <CContainer>
       <CRow class="justify-content-center">
         <CCol md="5">
+          <CImg
+            src="https://picsum.photos/1024/480/?image=54"
+            fluid
+            height="100%"
+          />
+        </CCol>
+        <CCol md="5">
           <CCardGroup>
             <CCard class="p-4">
               <CCardBody>

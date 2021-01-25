@@ -26,7 +26,7 @@
             >
             <template #action="{item}">
               <td class="py-2">
-                <CButton color="primary" variant="outline" square size="sm">Edit</CButton> <CButton v-on:click="delete_role(item.id)" color="danger" variant="outline" square size="sm">Delete</CButton>
+                <CButton v-on:click="goToEditRole(item)" color="primary" variant="outline" square size="sm">Edit</CButton> <CButton v-on:click="delete_role(item.id)" color="danger" variant="outline" square size="sm">Delete</CButton>
               </td>
             </template>
             </CDataTable>
@@ -43,7 +43,7 @@ import {can,hasRole} from '../../Config'
 const fields = [
   { key: 'name', label: 'Name' },
   { key: 'guard_name', label: 'Guard' },
-  { key: 'action', label: 'Action', sorter: false, filter: false}
+  { key: 'action', label: 'Action',_style:'width:20%', sorter: false, filter: false}
 ]
 export default {
   name:"Roles",
@@ -59,19 +59,33 @@ export default {
     this.canCreateRole=can('create roles')?can('create roles'):hasRole('super-admin');
   },
   methods:{
+    goToEditRole:function(role){
+      this.$router.push({ name: 'Edit_Role', params: { role: role } })
+    },
     load_roles:function(){
       API.get(API_URL+'/role/all').then(response=>{
+        console.log(response.data.roles)
         this.roles=response.data.roles;
       });
     },
     delete_role:function(role_id){
-      API.delete(API_URL+'/role/delete/'+role_id).then(response=>{
-        if(response.data.status===true){
-          this.load_roles();
-          swal('Deleted!',response.data.message,'success')
-        }
-        else if(response.data.status===false){
-          swal('Failed!',response.data.message,'error')
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this  record!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(willDelete=>{
+        if(willDelete){
+          API.delete(API_URL+'/role/delete/'+role_id).then(response=>{
+            if(response.data.status===true){
+              this.load_roles();
+              swal('Deleted!',response.data.message,'success')
+            }
+            else if(response.data.status===false){
+              swal('Failed!',response.data.message,'error')
+            }
+          })
         }
       })
     }

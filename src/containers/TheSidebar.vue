@@ -23,14 +23,14 @@
     </CSidebarBrand>
     <CSidebarNav>
       <CSidebarNavItem icon="cil-speedometer" name="Dashboard"></CSidebarNavItem>
-      <CSidebarNavTitle>Super Admin Panel</CSidebarNavTitle>
+      <CSidebarNavTitle v-if="readRoles===true">Super Admin Panel</CSidebarNavTitle>
       <CSidebarNavDropdown v-if="readRoles===true" icon="cil-user" name="Role Management">
         <CSidebarNavItem name="Roles" to="/role/all"></CSidebarNavItem> 
       </CSidebarNavDropdown>
-        <CSidebarNavDropdown icon="cil-user" name="User Management">
+        <CSidebarNavDropdown v-if="readRoles===true" icon="cil-user" name="User Management">
         <CSidebarNavItem name="Users" to="/user/all"></CSidebarNavItem>
       </CSidebarNavDropdown>
-      <CSidebarNavDropdown icon="cil-window" name="Company Management">
+      <CSidebarNavDropdown v-if="readRoles===true" icon="cil-window" name="Company Management">
         <CSidebarNavItem name="Companies" to="/company/all"></CSidebarNavItem>
       </CSidebarNavDropdown>
       <hr/>

@@ -3,8 +3,16 @@
 </template>
 
 <script>
+import {router} from './router/routers'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted(){
+    // window.addEventListener('keydown', function(e) {
+    //   if(e.key==="r"){
+    //     window.location="/role/all"
+    //   }
+    // });
+  }
 }
 </script>
 

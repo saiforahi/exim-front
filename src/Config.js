@@ -3,6 +3,7 @@ import axios from 'axios';
 const status = 'prod'
 //export const API_URL = status === 'dev' ? 'http://172.16.61.222:9050' : 'http://202.164.212.238:9030';
 export const API_URL = 'http://localhost:8000';
+//export const API_URL = 'http://erp.6dsolution.com';
 export const faker_url = "http://202.164.212.238:9050"
 export const TOKEN = "api_token"
 const jwt = localStorage.getItem(TOKEN);

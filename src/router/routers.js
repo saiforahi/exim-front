@@ -54,6 +54,12 @@ function configRoutes (){
                     beforeEnter : auth_guard
                 },
                 {
+                    path: '/role/edit',
+                    name: 'Edit_Role',
+                    component: ()=>import('../components/roles/Edit.vue'),
+                    beforeEnter: auth_guard
+                },
+                {
                     path:'/permission/create/',
                     name:'Permission_Create',
 
@@ -83,9 +89,9 @@ function configRoutes (){
                     beforeEnter: auth_guard
                 },
                 {
-                    path: '/company/edit/:id',
+                    path: '/company/edit',
                     name: 'Edit Company',
-                    component: ()=>import('../components/companies/Edit.vue'),
+                    component: ()=>import('../components/companies/Create.vue'),
                     beforeEnter: auth_guard
                 },
                 {
