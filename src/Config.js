@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const status = 'prod'
+//const status = 'prod'
 //export const API_URL = status === 'dev' ? 'http://172.16.61.222:9050' : 'http://202.164.212.238:9030';
 export const API_URL = 'http://localhost:8000';
 export const faker_url = "http://202.164.212.238:9050"
 export const TOKEN = "api_token"
-const jwt = localStorage.getItem(TOKEN);
+//const jwt = localStorage.getItem(TOKEN);
 export const credentials = {
   "GOOGLE_CLIENT_ID": "705019730299-kfb5arnuisah2135tka05uka6h7v901a.apps.googleusercontent.com",
   "FACEBOOK_APP_ID": "788095958681659"

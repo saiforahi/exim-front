@@ -7,6 +7,7 @@ import { iconsSet as icons } from './assets/icons/icons.js'
 import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import './registerServiceWorker'
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)

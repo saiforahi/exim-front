@@ -62,7 +62,7 @@ export default {
             })
           }
           else if(public_response.data.status===false){
-            swal('Failed',response.data.message,'error')
+            swal('Failed',public_response.data.message,'error')
           }
         }).catch(error=>{
           console.log(error)
