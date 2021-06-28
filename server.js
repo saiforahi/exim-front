@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 var multer = require('multer')
 var forms = multer();
-const path = __dirname + '/view/build/';
+const path = __dirname + '/view/dist/';
 const app = express();
 app.use(express.static(path));
 
